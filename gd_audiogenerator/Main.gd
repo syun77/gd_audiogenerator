@@ -66,7 +66,7 @@ func _on_button_play_pressed() -> void:
 	# 「空き容量」ぶんだけ一気に生成して詰める
 	var mix_rate: int = int(_gen.mix_rate)
 	var frames_to_fill: int = _pb.get_frames_available()
-	var octave = list_octave.selected + 1
+	var octave = list_octave.selected + 1 # 1始まりなので+1
 	var note = list_semitone.selected
 	var semitone = note + (octave - 4) * 12
 	# A4 = 440Hz を基準に計算
