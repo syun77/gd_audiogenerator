@@ -11,13 +11,13 @@ stream = ExtResource("1_glv2v")
 
 [node name="ButtonPlay" type="Button" parent="."]
 offset_left = 64.0
-offset_top = 192.0
+offset_top = 24.0
 offset_right = 192.0
-offset_bottom = 223.0
+offset_bottom = 55.0
 text = "再生"
 
 [node name="HSliderTime" type="HSlider" parent="."]
-offset_left = 72.0
+offset_left = 64.0
 offset_top = 240.0
 offset_right = 280.0
 offset_bottom = 256.0
@@ -34,11 +34,23 @@ offset_bottom = 96.0
 
 [node name="HSliderGain" type="HSlider" parent="."]
 offset_left = 64.0
-offset_top = 24.0
+offset_top = 200.0
 offset_right = 280.0
-offset_bottom = 40.0
+offset_bottom = 216.0
 max_value = 1.0
 step = 0.01
 value = 0.67
+
+[node name="SemitoneList" type="OptionButton" parent="."]
+offset_left = 64.0
+offset_top = 104.0
+offset_right = 192.0
+offset_bottom = 136.0
+
+[node name="OctaveList" type="OptionButton" parent="."]
+offset_left = 64.0
+offset_top = 144.0
+offset_right = 192.0
+offset_bottom = 176.0
 
 [connection signal="pressed" from="ButtonPlay" to="." method="_on_button_play_pressed"]

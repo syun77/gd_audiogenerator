@@ -8,6 +8,7 @@ enum eWave {
 	Saw,
 	WhiteNoise,
 }
+const SEMITONE = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 @onready var player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 # ゲイン
@@ -16,9 +17,10 @@ enum eWave {
 @onready var slider_time = $HSliderTime
 # 波形.
 @onready var list_oscillator = $OscillatorList
-
-# ピッチ.
-@export var freq_hz: float = 440.0
+# オクターブ
+@onready var list_octave = $OctaveList
+# 半音階
+@onready var list_semitone = $SemitoneList
 # ビットレート.
 @export var mix_rate_fallback: int = 44100
 
@@ -34,6 +36,13 @@ func _ready() -> void:
 	
 	for k in eWave.keys():
 		list_oscillator.add_item(k)
+	for v in SEMITONE:
+		list_semitone.add_item(v)
+	for i in range(1, 7):
+		list_octave.add_item("%d"%i)
+	list_oscillator.select(3) # Saw
+	list_semitone.select(9) # A
+	list_octave.select(3) # 4
 
 # 再生実行.
 func _on_button_play_pressed() -> void:
@@ -57,6 +66,11 @@ func _on_button_play_pressed() -> void:
 	# 「空き容量」ぶんだけ一気に生成して詰める
 	var mix_rate: int = int(_gen.mix_rate)
 	var frames_to_fill: int = _pb.get_frames_available()
+	var octave = list_octave.selected + 1
+	var note = list_semitone.selected
+	var semitone = note + (octave - 4) * 12
+	# A4 = 440Hz を基準に計算
+	var freq_hz = 440.0 * pow(2.0, (semitone - 9) / 12.0)
 	var step: float = TAU * freq_hz / float(mix_rate)
 
 	for i in range(frames_to_fill):
